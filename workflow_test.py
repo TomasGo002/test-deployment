@@ -26,8 +26,12 @@ def github_stars(repos: list[str]):
 
 # run the flow!
 if __name__ == "__main__":
-    github_stars.deploy(
+    flow.from_source(
+        source="https://github.com/TomasGo002/test-deployment.git",
+        entrypoint="workflow_test.py:github_stars"
+    ).deploy(
         name="testing",
         work_pool_name="vm-BI2",
-        cron="* * * * *"
+        cron="* * * * *",
+        parameters={"repos": ["PrefectHQ/prefect"]}
     )
